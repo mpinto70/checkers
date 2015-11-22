@@ -8,7 +8,8 @@ namespace util {
 class TestCException: public CxxTest::TestSuite {
     public:
         void testHierarchy();
-        void testCreation();
+        void testCreationException();
+        void testCreationSquareOutOfRange();
 };
 
 }

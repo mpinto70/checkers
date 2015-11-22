@@ -10,13 +10,17 @@ class CException : public std::runtime_error {
     public:
         /** creates the object.
          * @param msg the error message (accessible via what())
-         * @param code the error code
          */
-        CException(const std::string & msg, int code);
-        /** return the error code. */
-        int code() const { return code_; }
-    private:
-        int code_;  ///< error code
+        explicit CException(const std::string & msg);
+};
+
+/** square out of range exception. */
+class CSquareOutOfRange : public CException {
+    public:
+        /** creates the object.
+         * @param msg the error message (accessible via what())
+         */
+        explicit CSquareOutOfRange(const std::string & msg);
 };
 
 }

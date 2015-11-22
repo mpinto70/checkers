@@ -13,7 +13,6 @@ int main() {
     } catch (const util::CException & e) {
         std::cout << "An ERROR occurred" << std::endl;
         std::cout << e.what() << std::endl;
-        std::cout << "Code: " << e.code() << std::endl;
         return 1;
     }
 }

@@ -1,9 +1,6 @@
 
 VPATH = .:$(TSTBIN)
 
-CXXTEST_INC=$(CXXTEST_ROOT)
-CXXTEST_BIN=$(CXXTEST_ROOT)/bin
-
 HEADERS = $(subst .o,.h,$(OBJS))
 MAIN = unit_test_main
 MAIN_CPP = $(MAIN).cpp
@@ -27,6 +24,9 @@ endif
 endif
 
 include $(CHECKERS_ROOT)/project.mk
+
+CXXTEST_INC=$(CXXTEST_ROOT)
+CXXTEST_BIN=$(CXXTEST_ROOT)/bin
 
 CFLAGS +=	-I$(CXXTEST_INC) \
 			-DCXXTEST_HAVE_STD \

@@ -3,6 +3,7 @@ default: subdirs
 
 LIBDIRS =	\
 			util \
+			board \
 			game \
 
 SUBDIRS =	\
