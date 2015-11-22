@@ -10,6 +10,7 @@ class TestCException: public CxxTest::TestSuite {
         void testHierarchy();
         void testCreationException();
         void testCreationSquareOutOfRange();
+        void testCreationInvalidSquareState();
 };
 
 }

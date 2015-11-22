@@ -23,4 +23,13 @@ class CSquareOutOfRange : public CException {
         explicit CSquareOutOfRange(const std::string & msg);
 };
 
+/** invalid state for square exception. */
+class CInvalidSquareState : public CException {
+    public:
+        /** creates the object.
+         * @param msg the error message (accessible via what())
+         */
+        explicit CInvalidSquareState(const std::string & msg);
+};
+
 }

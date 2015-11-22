@@ -10,5 +10,9 @@ CSquareOutOfRange::CSquareOutOfRange(const std::string & msg)
     : CException(msg) {
 }
 
+CInvalidSquareState::CInvalidSquareState(const std::string & msg)
+    : CException(msg) {
+}
+
 }
 

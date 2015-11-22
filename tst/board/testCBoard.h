@@ -9,6 +9,9 @@ class TestCBoard: public CxxTest::TestSuite {
     public:
         void testCreation();
         void testSquare();
+        void testSquareInvalid();
+        void testFree();
+        void testSet();
 };
 
 }

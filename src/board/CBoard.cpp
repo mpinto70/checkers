@@ -2,6 +2,7 @@
 #include "CBoard.h"
 
 #include "util/CException.h"
+#include <string>
 
 namespace board {
 
@@ -18,9 +19,6 @@ CBoard::CBoard()
 }) {
 }
 
-CBoard::~CBoard() {
-}
-
 ESquare CBoard::square(int squareNumber) const {
     if (squareNumber < 1 || squareNumber > 32) {
         throw util::CSquareOutOfRange("CBoard::square - square number [" + std::to_string(squareNumber) + "] out of range");
@@ -29,6 +27,14 @@ ESquare CBoard::square(int squareNumber) const {
     const auto columnRow = normalizedColumnRow(squareNumber);
 
     return square(columnRow);
+}
+
+void CBoard::free(int squareNumber) {
+    set("free", squareNumber, ESquare::EMPTY);
+}
+
+void CBoard::set(int squareNumber, ESquare state) {
+    set("set", squareNumber, state);
 }
 
 std::pair<int, int> CBoard::normalizedColumnRow(int squareNumber) const {
@@ -44,7 +50,27 @@ ESquare CBoard::square(const std::pair<int, int> & columnRow) const {
     if (column < 0 || column > 7
             || row < 0 || row > 7)
         return ESquare::VOID;
-    return squares[columnRow.second * 8 + columnRow.first];
+    const int idx = index(columnRow);
+    return squares[idx];
 }
+
+int CBoard::index(const std::pair<int, int> & columnRow) const {
+    return columnRow.second * 8 + columnRow.first;
+}
+
+void CBoard::set(const std::string & function, int squareNumber, ESquare state) {
+    if (state == ESquare::VOID) {
+        throw util::CInvalidSquareState("CBoard::" + function + " - invalid state to square");
+    }
+    const auto columnRow = normalizedColumnRow(squareNumber);
+    const auto oldState = square(columnRow);
+    if (oldState == ESquare::VOID) {
+        throw util::CSquareOutOfRange("CBoard::" + function + " - square number [" + std::to_string(squareNumber) + "] out of range");
+    }
+
+    const auto idx = index(columnRow);
+    squares[idx] = state;
+}
+
 
 }
