@@ -36,6 +36,14 @@ void CBoard::set(int squareNumber,
     set("set", squareNumber, state);
 }
 
+std::vector<int> CBoard::squaresWithCapture(ESquare state) const {
+    return squaresWithOperation(&CBoard::hasCapture, state);
+}
+
+std::vector<int> CBoard::squaresWithMove(ESquare state) const {
+    return squaresWithOperation(&CBoard::hasMove, state);
+}
+
 std::vector<int> CBoard::possibleDestinationsFrom(int squareNumber) const {
     validateSquareNumber("possibleDestinationsFrom", squareNumber);
     const auto from = normalizeSquareNumber(squareNumber);
@@ -104,6 +112,33 @@ void CBoard::set(const std::string & function,
 
     const auto idx = index(columnRow);
     squares[idx] = state;
+}
+
+template <typename T>
+std::vector<int> CBoard::squaresWithOperation(T func,
+                                              ESquare state) const {
+    if (state != ESquare::WHITE && state != ESquare::BLACK) {
+        return std::vector<int> {};
+    }
+    std::vector<int> res;
+    for (int i = 1; i <= 32; ++i) {
+        if (square(i) == state
+                && hasOperation<T>(func, i, state)) {
+            res.push_back(i);
+        }
+    }
+    return res;
+}
+
+template <typename T>
+bool CBoard::hasOperation(T func,
+                          int squareNumber,
+                          ESquare fromState) const {
+    const auto from = normalizeSquareNumber(squareNumber);
+    return (this->*func)(from, fromState, -1, -1)
+           || (this->*func)(from, fromState, +1, -1)
+           || (this->*func)(from, fromState, +1, +1)
+           || (this->*func)(from, fromState, -1, +1);
 }
 
 template <typename T>

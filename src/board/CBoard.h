@@ -24,6 +24,8 @@ class CBoard {
         void free(int squareNumber);
         void set(int squareNumber,
                  ESquare state);
+        std::vector<int> squaresWithCapture(ESquare state) const;
+        std::vector<int> squaresWithMove(ESquare state) const;
         std::vector<int> possibleDestinationsFrom(int squareNumber) const;
     private:
         std::array<ESquare, 64> squares;
@@ -38,6 +40,13 @@ class CBoard {
                  int squareNumber,
                  ESquare state);
 
+        template <typename T>
+        std::vector<int> squaresWithOperation(T func,
+                                              ESquare fromState) const;
+        template <typename T>
+        bool hasOperation(T func,
+                          int squareNumber,
+                          ESquare fromState) const;
         template <typename T>
         void addPossibles(T func,
                           std::vector<int> & possibles,

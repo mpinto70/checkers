@@ -15,6 +15,9 @@ class TestCBoard: public CxxTest::TestSuite {
         void testPossibleDestinationsFromBlack();
         void testPossibleDestinationsFromWhite();
         void testPossibleDestinationsWithCapture();
+
+        void testSquaresWithCapture();
+        void testSquaresWithMove();
 };
 
 }

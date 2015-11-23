@@ -172,10 +172,10 @@ void TestCBoard::testPossibleDestinationsFromWhite() {
 }
 
 static void verifyCaptures(ESquare stateSquare,
-                ESquare stateOthers,
-                int square,
-                const std::vector<int> & others,
-                const std::vector<int> & destinations) {
+                           ESquare stateOthers,
+                           int square,
+                           const std::vector<int> & others,
+                           const std::vector<int> & destinations) {
     CBoard b;
     clean(b);
     b.set(square, stateSquare);
@@ -187,8 +187,8 @@ static void verifyCaptures(ESquare stateSquare,
 }
 
 static void verifyCaptures(int square,
-                const std::vector<int> & others,
-                const std::vector<int> & destinations) {
+                           const std::vector<int> & others,
+                           const std::vector<int> & destinations) {
     verifyCaptures(ESquare::BLACK, ESquare::WHITE, square, others, destinations);
     verifyCaptures(ESquare::WHITE, ESquare::BLACK, square, others, destinations);
 }
@@ -204,5 +204,76 @@ void TestCBoard::testPossibleDestinationsWithCapture() {
     verifyCaptures(6, {1, 2, 9, 10}, {15, 13});
 }
 
+static void verifyListOfCapturers(ESquare one,
+                                  const std::vector<int> & ones,
+                                  ESquare other,
+                                  const std::vector<int> & others,
+                                  const std::vector<int> & capturers) {
+    CBoard b;
+    clean(b);
+
+    for (auto i : ones) {
+        b.set(i, one);
+    }
+    for (auto i : others) {
+        b.set(i, other);
+    }
+
+    TS_ASSERT_EQUALS(b.squaresWithCapture(one), capturers);
 }
 
+static void verifyListOfCapturers(const std::vector<int> & ones,
+                                  const std::vector<int> & others,
+                                  const std::vector<int> & capturers) {
+
+    verifyListOfCapturers(ESquare::BLACK, ones, ESquare::WHITE, others, capturers);
+    verifyListOfCapturers(ESquare::WHITE, ones, ESquare::BLACK, others, capturers);
+
+    verifyListOfCapturers(ESquare::WHITE, ones, ESquare::WHITE, others, {});
+    verifyListOfCapturers(ESquare::BLACK, ones, ESquare::BLACK, others, {});
+}
+
+void TestCBoard::testSquaresWithCapture() {
+    CBoard b;
+    TS_ASSERT_EQUALS(b.squaresWithCapture(ESquare::WHITE), std::vector<int> {});
+    TS_ASSERT_EQUALS(b.squaresWithCapture(ESquare::BLACK), std::vector<int> {});
+
+    verifyListOfCapturers({9, 10, 11}, {6}, {9, 10});
+
+    verifyListOfCapturers({9, 27, 31}, {14, 26, 24}, {9, 27, 31});
+
+    verifyListOfCapturers({6}, {1}, {});
+
+    verifyListOfCapturers({6, 15}, {10}, {});
+
+    verifyListOfCapturers({6, 10}, {15}, {10});
+}
+
+static void verifyListOfMovers(ESquare one,
+                               const std::vector<int> & ones,
+                               ESquare other,
+                               const std::vector<int> & others,
+                               const std::vector<int> & capturers) {
+    CBoard b;
+    clean(b);
+
+    for (auto i : ones) {
+        b.set(i, one);
+    }
+    for (auto i : others) {
+        b.set(i, other);
+    }
+
+    TS_ASSERT_EQUALS(b.squaresWithMove(one), capturers);
+}
+
+void TestCBoard::testSquaresWithMove() {
+    CBoard b;
+    TS_ASSERT_EQUALS(b.squaresWithMove(ESquare::BLACK), (std::vector<int> {9, 10, 11, 12}));
+    TS_ASSERT_EQUALS(b.squaresWithMove(ESquare::WHITE), (std::vector<int> {21, 22, 23, 24}));
+
+    verifyListOfMovers(ESquare::BLACK, {9, 10, 11}, ESquare::WHITE, {6}, {9, 10, 11});
+    verifyListOfMovers(ESquare::BLACK, {4, 8},      ESquare::WHITE, {}, {8});
+}
+
+}
