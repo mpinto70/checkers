@@ -3,6 +3,7 @@
 
 #include <array>
 #include <iosfwd>
+#include <vector>
 
 namespace board {
 
@@ -21,14 +22,51 @@ class CBoard {
         CBoard();
         ESquare square(int squareNumber) const;
         void free(int squareNumber);
-        void set(int squareNumber, ESquare state);
+        void set(int squareNumber,
+                 ESquare state);
+        std::vector<int> possibleDestinationsFrom(int squareNumber) const;
     private:
         std::array<ESquare, 64> squares;
 
-        std::pair<int, int> normalizedColumnRow(int squareNumber) const;
+        void validateSquareNumber(const std::string & function,
+                                  int squareNumber) const;
+        std::pair<int, int> normalizeSquareNumber(int squareNumber) const;
+        int denormalizeColumnRow(const std::pair<int, int> & columnRow) const;
         ESquare square(const std::pair<int, int> & columnRow) const;
         int index(const std::pair<int, int> & columnRow) const;
-        void set(const std::string & function, int squareNumber, ESquare state);
+        void set(const std::string & function,
+                 int squareNumber,
+                 ESquare state);
+
+        template <typename T>
+        void addPossibles(T func,
+                          std::vector<int> & possibles,
+                          const std::pair<int, int> & from,
+                          ESquare fromState) const;
+        void addPossibleCaptures(std::vector<int> & possibles,
+                                 const std::pair<int, int> & from,
+                                 ESquare fromState) const;
+        void addPossibleCapture(std::vector<int> & possibles,
+                                const std::pair<int, int> & from,
+                                ESquare fromState,
+                                int dir_h,
+                                int dir_v) const;
+        void addPossibleMoves(std::vector<int> & possibles,
+                              const std::pair<int, int> & from,
+                              ESquare fromState) const;
+        void addPossibleMove(std::vector<int> & possibles,
+                             const std::pair<int, int> & from,
+                             ESquare fromState,
+                             int dir_h,
+                             int dir_v) const;
+        bool possibleCapture(const std::pair<int, int> & from,
+                             ESquare fromState,
+                             int dir_h,
+                             int dir_v) const;
+        bool possibleMove(const std::pair<int, int> & from,
+                          ESquare fromState,
+                          int dir_h,
+                          int dir_v) const;
 };
 
 }
