@@ -1,4 +1,6 @@
 
+#include "ui/console/CConsole.h"
+#include "ui/IUI.h"
 #include "game/CController.h"
 #include "util/CException.h"
 
@@ -7,7 +9,8 @@
 
 int main() {
     try {
-        game::CController controller{};
+        std::unique_ptr<ui::IUI> console(new ui::console::CConsole());
+        game::CController controller{std::move(console)};
         controller.run();
         return 0;
     } catch (const util::CException & e) {

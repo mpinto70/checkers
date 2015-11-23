@@ -4,6 +4,7 @@ default: subdirs
 LIBDIRS =	\
 			util \
 			board \
+			ui \
 			game \
 
 SUBDIRS =	\

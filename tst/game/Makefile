@@ -3,6 +3,9 @@ default: exetarget
 
 LIBS =	\
 		-lgame \
+		-lmckui \
+		-lui \
+		-lboard \
 		-lutil \
 
 SUBDIRS =

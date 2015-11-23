@@ -4,7 +4,10 @@ default: exetarget
 EXE=checkers.exe
 
 LIBS =	\
+		-luiconsole \
 		-lgame \
+		-lui \
+		-lboard \
 		-lutil \
 
 SUBDIRS =

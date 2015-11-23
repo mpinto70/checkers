@@ -2,6 +2,7 @@
 default: subdirs
 
 SUBDIRS =	\
+			ui \
 
 subdirs: $(SUBDIRS)
 
