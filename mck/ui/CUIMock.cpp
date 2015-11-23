@@ -29,6 +29,9 @@ void CUIMock::show(const board::CBoard& board) const {
     states_.swap(st);
 }
 
+void CUIMock::showInvalidMove(std::pair<int, int> move) const {
+}
+
 std::vector<board::ESquare> CUIMock::states() {
     return states_;
 }

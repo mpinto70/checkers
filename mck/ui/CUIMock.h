@@ -11,6 +11,7 @@ class CUIMock: public IUI {
         virtual ~CUIMock() = default;
         void show(const board::CBoard & board) const override;
         std::pair<int, int> askForMove() const override;
+        void showInvalidMove(std::pair<int, int> move) const override;
 
         static std::vector<board::ESquare> states();
     private:

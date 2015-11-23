@@ -19,6 +19,10 @@ CBoard::CBoard()
 }) {
 }
 
+bool CBoard::isValid(int squareNumber) const {
+    return squareNumber >= 1 && squareNumber <= 32;
+}
+
 ESquare CBoard::square(int squareNumber) const {
     validateSquareNumber("square", squareNumber);
 
@@ -60,7 +64,7 @@ std::vector<int> CBoard::possibleDestinationsFrom(int squareNumber) const {
 
 void CBoard::validateSquareNumber(const std::string & function,
                                   int squareNumber) const {
-    if (squareNumber < 1 || squareNumber > 32) {
+    if (not isValid(squareNumber)) {
         throw util::CSquareOutOfRange("CBoard::" + function + " - square number [" + std::to_string(squareNumber) + "] out of range");
     }
 }

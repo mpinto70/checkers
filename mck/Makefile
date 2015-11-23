@@ -3,6 +3,7 @@ default: subdirs
 
 SUBDIRS =	\
 			ui \
+			player \
 
 subdirs: $(SUBDIRS)
 

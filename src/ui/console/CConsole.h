@@ -11,6 +11,7 @@ class CConsole: public IUI {
         virtual ~CConsole() = default;
         void show(const board::CBoard & board) const override;
         std::pair<int, int> askForMove() const override;
+        void showInvalidMove(std::pair<int, int> move) const override;
 };
 
 }

@@ -6,7 +6,9 @@ EXE=checkers.exe
 LIBS =	\
 		-luiconsole \
 		-lgame \
+		-lplayerplayers \
 		-lui \
+		-lplayer \
 		-lboard \
 		-lutil \
 

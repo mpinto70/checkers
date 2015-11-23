@@ -20,6 +20,7 @@ enum class ESquare {
 class CBoard {
     public:
         CBoard();
+        bool isValid(int squareNumber) const;
         ESquare square(int squareNumber) const;
         void free(int squareNumber);
         void set(int squareNumber,

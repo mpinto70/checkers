@@ -16,12 +16,12 @@ const std::string OTHER = ". ";
 
 static std::string format(board::ESquare state) {
     switch (state) {
-    case board::ESquare::WHITE:
-           return WHITE;
-    case board::ESquare::BLACK:
+        case board::ESquare::WHITE:
+            return WHITE;
+        case board::ESquare::BLACK:
             return BLACK;
-    default:
-        return OTHER;
+        default:
+            return OTHER;
     }
 }
 void CConsole::show(const board::CBoard& board) const {
@@ -49,4 +49,8 @@ std::pair<int, int> CConsole::askForMove() const {
 }
 
 }
+}
+
+void ui::console::CConsole::showInvalidMove(std::pair<int, int> move) const {
+    std::cout << "You entered an invalid move: " << move.first << " --> " << move.second << std::endl;
 }
