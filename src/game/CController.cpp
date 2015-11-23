@@ -73,8 +73,7 @@ void CController::run() {
                 continue;
             }
         }
-        board.free(move.first);
-        board.set(move.second, currentColor);
+        board.executeMove(move.first, move.second);
 
         currentColor = switchColor(currentColor);
     }

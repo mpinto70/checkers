@@ -28,6 +28,7 @@ class CBoard {
         std::vector<int> squaresWithCapture(ESquare state) const;
         std::vector<int> squaresWithMove(ESquare state) const;
         std::vector<int> possibleDestinationsFrom(int squareNumber) const;
+        void executeMove(int from, int to);
     private:
         std::array<ESquare, 64> squares;
 
@@ -39,6 +40,8 @@ class CBoard {
         int index(const std::pair<int, int> & columnRow) const;
         void set(const std::string & function,
                  int squareNumber,
+                 ESquare state);
+        void set(const std::pair<int, int> & columnRow,
                  ESquare state);
 
         template <typename T>

@@ -32,4 +32,13 @@ class CInvalidSquareState : public CException {
         explicit CInvalidSquareState(const std::string & msg);
 };
 
+/** invalid state for square exception. */
+class CInvalidMove : public CException {
+    public:
+        /** creates the object.
+         * @param msg the error message (accessible via what())
+         */
+        explicit CInvalidMove(const std::string & msg);
+};
+
 }

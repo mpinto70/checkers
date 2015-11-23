@@ -14,5 +14,9 @@ CInvalidSquareState::CInvalidSquareState(const std::string & msg)
     : CException(msg) {
 }
 
+CInvalidMove::CInvalidMove(const std::string & msg)
+    : CException(msg) {
+}
+
 }
 

@@ -3,6 +3,7 @@
 
 #include "util/CException.h"
 #include <string>
+#include <cstdlib>
 
 namespace board {
 
@@ -62,6 +63,43 @@ std::vector<int> CBoard::possibleDestinationsFrom(int squareNumber) const {
     return res;
 }
 
+void CBoard::executeMove(int from, int to) {
+    validateSquareNumber("executeMove(from)", from);
+    validateSquareNumber("executeMove(to)", to);
+
+    const auto fromCR = normalizeSquareNumber(from);
+    const auto toCR = normalizeSquareNumber(to);
+
+    const auto fromState = square(fromCR);
+    const auto toState = square(toCR);
+    if (fromState != ESquare::BLACK && fromState != ESquare::WHITE)
+        throw util::CInvalidMove("CBoard::executeMove - invalid origin");
+    if (toState != ESquare::EMPTY)
+        throw util::CInvalidMove("CBoard::executeMove - invalid destination");
+
+    const int distH = toCR.first - fromCR.first;
+    const int distV = toCR.second - fromCR.second;
+
+    if (std::abs(distH) != std::abs(distV))
+        throw util::CInvalidMove("CBoard::executeMove - invalid move");
+
+    if (std::abs(distH) > 2)
+        throw util::CInvalidMove("CBoard::executeMove - move is too long");
+
+    if (std::abs(distH) == 2) { // capture
+        const auto captured = std::make_pair(fromCR.first + distH / 2, fromCR.second + distV / 2);
+        const auto capturedState = square(captured);
+        if (capturedState != ESquare::BLACK && capturedState != ESquare::WHITE)
+            throw util::CInvalidMove("CBoard::executeMove - invalid captured");
+        if (capturedState == fromState)
+            throw util::CInvalidMove("CBoard::executeMove - captured is the same as capturer");
+        set(captured, ESquare::EMPTY);
+    }
+    set(fromCR, ESquare::EMPTY);
+    set(toCR, fromState);
+}
+
+
 void CBoard::validateSquareNumber(const std::string & function,
                                   int squareNumber) const {
     if (not isValid(squareNumber)) {
@@ -114,6 +152,11 @@ void CBoard::set(const std::string & function,
 
     const auto columnRow = normalizeSquareNumber(squareNumber);
 
+    set(columnRow, state);
+}
+
+void CBoard::set(const std::pair<int, int> & columnRow,
+                 ESquare state) {
     const auto idx = index(columnRow);
     squares[idx] = state;
 }
