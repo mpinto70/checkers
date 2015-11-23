@@ -59,14 +59,14 @@ class CBoard {
                              ESquare fromState,
                              int dir_h,
                              int dir_v) const;
-        bool possibleCapture(const std::pair<int, int> & from,
-                             ESquare fromState,
-                             int dir_h,
-                             int dir_v) const;
-        bool possibleMove(const std::pair<int, int> & from,
-                          ESquare fromState,
-                          int dir_h,
-                          int dir_v) const;
+        bool hasCapture(const std::pair<int, int> & from,
+                        ESquare fromState,
+                        int dir_h,
+                        int dir_v) const;
+        bool hasMove(const std::pair<int, int> & from,
+                     ESquare fromState,
+                     int dir_h,
+                     int dir_v) const;
 };
 
 }

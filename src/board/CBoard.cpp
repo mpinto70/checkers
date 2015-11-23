@@ -135,7 +135,7 @@ void CBoard::addPossibleCapture(std::vector<int> & possibles,
                                 ESquare fromState,
                                 int dir_h,
                                 int dir_v) const {
-    if (possibleCapture(from, fromState, dir_h, dir_v)) {
+    if (hasCapture(from, fromState, dir_h, dir_v)) {
         const auto to = std::make_pair(from.first + 2 * dir_h, from.second + 2 * dir_v);
         possibles.push_back(denormalizeColumnRow(to));
     }
@@ -146,16 +146,16 @@ void CBoard::addPossibleMove(std::vector<int> & possibles,
                              ESquare fromState,
                              int dir_h,
                              int dir_v) const {
-    if (possibleMove(from, fromState, dir_h, dir_v)) {
+    if (hasMove(from, fromState, dir_h, dir_v)) {
         const auto to = std::make_pair(from.first + dir_h, from.second + dir_v);
         possibles.push_back(denormalizeColumnRow(to));
     }
 }
 
-bool CBoard::possibleCapture(const std::pair<int, int> & from,
-                             ESquare fromState,
-                             int dir_h,
-                             int dir_v) const {
+bool CBoard::hasCapture(const std::pair<int, int> & from,
+                        ESquare fromState,
+                        int dir_h,
+                        int dir_v) const {
     const auto to = std::make_pair(from.first + dir_h, from.second + dir_v);
     const auto toState = square(to);
     if (toState == fromState || toState == ESquare::EMPTY || toState == ESquare::VOID) {
@@ -166,10 +166,10 @@ bool CBoard::possibleCapture(const std::pair<int, int> & from,
     return square(to_2) == ESquare::EMPTY;
 }
 
-bool CBoard::possibleMove(const std::pair<int, int> & from,
-                          ESquare fromState,
-                          int dir_h,
-                          int dir_v) const {
+bool CBoard::hasMove(const std::pair<int, int> & from,
+                     ESquare fromState,
+                     int dir_h,
+                     int dir_v) const {
     if (fromState == ESquare::WHITE and dir_v == 1) {
         return false;
     }
