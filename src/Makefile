@@ -5,6 +5,7 @@ LIBDIRS =	\
 			util \
 			board \
 			ui \
+			player \
 			game \
 
 SUBDIRS =	\

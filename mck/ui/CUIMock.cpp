@@ -7,6 +7,7 @@ namespace ui {
 namespace mck {
 
 std::vector<board::ESquare> CUIMock::states_;
+std::vector<std::pair<int, int>> CUIMock::moves_;
 
 CUIMock::CUIMock()
     : IUI() {
@@ -31,6 +32,15 @@ void CUIMock::show(const board::CBoard& board) const {
 std::vector<board::ESquare> CUIMock::states() {
     return states_;
 }
+
+std::pair<int, int> CUIMock::askForMove() const {
+    if (moves_.empty())
+        return std::make_pair(0, 0);
+    auto res = moves_[0];
+    moves_.erase(moves_.begin());
+    return res;
+}
+
 
 }
 }

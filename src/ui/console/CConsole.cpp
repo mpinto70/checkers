@@ -38,5 +38,15 @@ void CConsole::show(const board::CBoard& board) const {
     std::cout << std::endl;
 }
 
+std::pair<int, int> CConsole::askForMove() const {
+    std::cout << "Enter the piece to move: ";
+    int ini;
+    std::cin >> ini;
+    std::cout << "Enter the destination square: ";
+    int fin;
+    std::cin >> fin;
+    return std::make_pair(ini, fin);
+}
+
 }
 }

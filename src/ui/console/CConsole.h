@@ -10,7 +10,7 @@ class CConsole: public IUI {
         CConsole();
         virtual ~CConsole() = default;
         void show(const board::CBoard & board) const override;
-
+        std::pair<int, int> askForMove() const override;
 };
 
 }
