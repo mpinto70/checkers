@@ -10,6 +10,8 @@ LIB_BASE_NAME = lib$(subst /,,$(subst $(CHECKERS_ROOT)/src,,$(shell pwd)))
 LIBA=$(LIB_BASE_NAME).a
 LIBSO=$(LIB_BASE_NAME).so
 
+OTHER_EXE_PARMS=-static
+
 include $(CHECKERS_ROOT)/project.mk
 
 libsotarget: directory_message $(LIBSO) $(SUBDIRS)
