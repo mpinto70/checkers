@@ -41,7 +41,7 @@ void CController::run() {
     std::vector<int> moves;
     while (not(captures = board.squaresWithCapture(currentColor)).empty()
             || not(moves = board.squaresWithMove(currentColor)).empty()) {
-        ui_->show(board, currentColor);
+        ui_->show(board);
         auto * currentPlayer = players_.find(currentColor)->second.get();
 
         const std::vector<int> possible = captures.empty() ? moves : captures;
