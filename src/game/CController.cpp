@@ -74,7 +74,7 @@ void CController::run() {
         board.executeMove(move.first, move.second);
 
         if (not captures.empty() && board.hasCapture(move.second)) {
-            captures = std::vector<int>{move.second};
+            captures = std::vector<int> {move.second};
         } else {
             currentColor = switchColor(currentColor);
 
