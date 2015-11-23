@@ -44,6 +44,8 @@ std::pair<int, int> CUIMock::askForMove() const {
     return res;
 }
 
+void CUIMock::announceWinner(board::ESquare color) const {
+}
 
 }
 }

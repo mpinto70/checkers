@@ -47,18 +47,28 @@ void CConsole::show(const board::CBoard& board) const {
 }
 
 std::pair<int, int> CConsole::askForMove() const {
-    std::cout << "Enter the piece to move: ";
+    std::cout << "Enter the piece to move and the destination square: ";
     int ini;
     std::cin >> ini;
-    std::cout << "Enter the destination square: ";
     int fin;
     std::cin >> fin;
     return std::make_pair(ini, fin);
 }
 
+void CConsole::showInvalidMove(std::pair<int, int> move) const {
+    std::cout << std::endl << std::endl;
+    std::cout << "===============================================================================" << std::endl;
+    std::cout << "You entered an invalid move: " << move.first << " --> " << move.second << std::endl;
+    std::cout << "===============================================================================" << std::endl;
+}
+
+void CConsole::announceWinner(board::ESquare color) const {
+    std::cout << std::endl << std::endl;
+    std::cout << "===============================================================================" << std::endl;
+    std::cout << "The winner is: " << ((color == board::ESquare::WHITE) ? "WHITE" : "BLACK") << std::endl;
+    std::cout << "===============================================================================" << std::endl;
+}
+
 }
 }
 
-void ui::console::CConsole::showInvalidMove(std::pair<int, int> move) const {
-    std::cout << "You entered an invalid move: " << move.first << " --> " << move.second << std::endl;
-}

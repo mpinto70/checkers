@@ -25,6 +25,15 @@ CController::CController(std::unique_ptr<ui::IUI> ui,
     players_.insert(std::make_pair(board::ESquare::BLACK, std::move(blacks)));
 }
 
+static board::ESquare switchColor(const board::ESquare currentColor) {
+    if (currentColor == board::ESquare::WHITE) {
+        return board::ESquare::BLACK;
+    } else {
+        return board::ESquare::WHITE;
+    }
+
+}
+
 void CController::run() {
     board::CBoard board;
     auto currentColor = board::ESquare::WHITE;
@@ -32,7 +41,7 @@ void CController::run() {
     std::vector<int> moves;
     while (not(captures = board.squaresWithCapture(currentColor)).empty()
             || not(moves = board.squaresWithMove(currentColor)).empty()) {
-        ui_->show(board);
+        ui_->show(board, currentColor);
         auto * currentPlayer = players_.find(currentColor)->second.get();
 
         const std::vector<int> possible = captures.empty() ? moves : captures;
@@ -67,12 +76,13 @@ void CController::run() {
         board.free(move.first);
         board.set(move.second, currentColor);
 
-        if (currentColor == board::ESquare::WHITE) {
-            currentColor = board::ESquare::BLACK;
-        } else {
-            currentColor = board::ESquare::WHITE;
-        }
+        currentColor = switchColor(currentColor);
     }
+
+    currentColor = switchColor(currentColor);
+
+    ui_->announceWinner(currentColor);
+
 }
 
 }
