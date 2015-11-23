@@ -41,8 +41,13 @@ void CBoard::set(int squareNumber,
     set("set", squareNumber, state);
 }
 
+bool CBoard::hasCapture(int squareNumber) const {
+    const auto state = square(squareNumber);
+    return hasOperation(&CBoard::hasCaptureDir, squareNumber, state);
+}
+
 std::vector<int> CBoard::squaresWithCapture(ESquare state) const {
-    return squaresWithOperation(&CBoard::hasCapture, state);
+    return squaresWithOperation(&CBoard::hasCaptureDir, state);
 }
 
 std::vector<int> CBoard::squaresWithMove(ESquare state) const {
@@ -217,7 +222,7 @@ void CBoard::addPossibleCapture(std::vector<int> & possibles,
                                 ESquare fromState,
                                 int dir_h,
                                 int dir_v) const {
-    if (hasCapture(from, fromState, dir_h, dir_v)) {
+    if (hasCaptureDir(from, fromState, dir_h, dir_v)) {
         const auto to = std::make_pair(from.first + 2 * dir_h, from.second + 2 * dir_v);
         possibles.push_back(denormalizeColumnRow(to));
     }
@@ -234,10 +239,10 @@ void CBoard::addPossibleMove(std::vector<int> & possibles,
     }
 }
 
-bool CBoard::hasCapture(const std::pair<int, int> & from,
-                        ESquare fromState,
-                        int dir_h,
-                        int dir_v) const {
+bool CBoard::hasCaptureDir(const std::pair<int, int> & from,
+                           ESquare fromState,
+                           int dir_h,
+                           int dir_v) const {
     const auto to = std::make_pair(from.first + dir_h, from.second + dir_v);
     const auto toState = square(to);
     if (toState == fromState || toState == ESquare::EMPTY || toState == ESquare::VOID) {

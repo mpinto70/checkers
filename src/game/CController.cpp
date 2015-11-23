@@ -37,11 +37,10 @@ static board::ESquare switchColor(const board::ESquare currentColor) {
 void CController::run() {
     board::CBoard board;
     auto currentColor = board::ESquare::WHITE;
-    std::vector<int> captures;
-    std::vector<int> moves;
-    while (not(captures = board.squaresWithCapture(currentColor)).empty()
-            || not(moves = board.squaresWithMove(currentColor)).empty()) {
-        ui_->show(board);
+    std::vector<int> captures = board.squaresWithCapture(currentColor);
+    std::vector<int> moves = board.squaresWithMove(currentColor);
+    while (not captures.empty() || not moves.empty()) {
+        ui_->show(board, currentColor);
         auto * currentPlayer = players_.find(currentColor)->second.get();
 
         const std::vector<int> possible = captures.empty() ? moves : captures;
@@ -66,7 +65,6 @@ void CController::run() {
                 ui_->showInvalidMove(move);
                 continue;
             }
-            // erase captured
         } else {
             if (std::find(moves.begin(), moves.end(), move.first) == moves.end()) {
                 ui_->showInvalidMove(move);
@@ -75,9 +73,17 @@ void CController::run() {
         }
         board.executeMove(move.first, move.second);
 
-        currentColor = switchColor(currentColor);
+        if (not captures.empty() && board.hasCapture(move.second)) {
+            captures = std::vector<int>{move.second};
+        } else {
+            currentColor = switchColor(currentColor);
+
+            captures = board.squaresWithCapture(currentColor);
+            moves = board.squaresWithMove(currentColor);
+        }
     }
 
+    ui_->show(board);
     currentColor = switchColor(currentColor);
 
     ui_->announceWinner(currentColor);

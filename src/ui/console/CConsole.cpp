@@ -33,6 +33,7 @@ static std::string format(int i, const board::CBoard & board) {
 }
 
 void CConsole::show(const board::CBoard& board) const {
+    std::cout << "----------------------------------" << std::endl;
     for (int i = 1; i <= 32; ++i) {
         if ((i - 1) % 4 == 0) {
             std::cout << std::endl << std::endl;
@@ -43,7 +44,18 @@ void CConsole::show(const board::CBoard& board) const {
         else
             std::cout << format(i, board) << VOID;
     }
-    std::cout << std::endl << std::endl;
+    std::cout << std::endl;
+    std::cout << "----------------------------------" << std::endl;
+}
+
+void CConsole::showPlayer(board::ESquare color) const {
+    std::cout << "It is ";
+    if (color == board::ESquare::WHITE)
+        std::cout << "WHITE";
+    else
+        std::cout << "BLACK";
+
+    std::cout << "'s turn" << std::endl;
 }
 
 std::pair<int, int> CConsole::askForMove() const {

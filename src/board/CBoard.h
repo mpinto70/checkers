@@ -25,6 +25,7 @@ class CBoard {
         void free(int squareNumber);
         void set(int squareNumber,
                  ESquare state);
+        bool hasCapture(int squareNumber) const;
         std::vector<int> squaresWithCapture(ESquare state) const;
         std::vector<int> squaresWithMove(ESquare state) const;
         std::vector<int> possibleDestinationsFrom(int squareNumber) const;
@@ -72,10 +73,10 @@ class CBoard {
                              ESquare fromState,
                              int dir_h,
                              int dir_v) const;
-        bool hasCapture(const std::pair<int, int> & from,
-                        ESquare fromState,
-                        int dir_h,
-                        int dir_v) const;
+        bool hasCaptureDir(const std::pair<int, int> & from,
+                           ESquare fromState,
+                           int dir_h,
+                           int dir_v) const;
         bool hasMove(const std::pair<int, int> & from,
                      ESquare fromState,
                      int dir_h,

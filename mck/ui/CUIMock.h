@@ -10,6 +10,7 @@ class CUIMock: public IUI {
         CUIMock();
         virtual ~CUIMock() = default;
         void show(const board::CBoard & board) const override;
+        void showPlayer(board::ESquare color) const override;
         std::pair<int, int> askForMove() const override;
         void showInvalidMove(std::pair<int, int> move) const override;
         void announceWinner(board::ESquare color) const override;
