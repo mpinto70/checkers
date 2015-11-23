@@ -10,9 +10,10 @@ CConsole::CConsole()
     : IUI() {
 }
 
-const std::string WHITE = "o ";
-const std::string BLACK = "x ";
-const std::string OTHER = ". ";
+const std::string WHITE = "[o]";
+const std::string BLACK = "[x]";
+const std::string OTHER = "[ ]";
+const std::string VOID  = "     ";
 
 static std::string format(board::ESquare state) {
     switch (state) {
@@ -24,18 +25,25 @@ static std::string format(board::ESquare state) {
             return OTHER;
     }
 }
+
+static std::string format(int i, const board::CBoard & board) {
+    const auto mark = format(board.square(i));
+    const auto num = std::to_string(i) + ((i < 10) ? " " : "");
+    return mark + num;
+}
+
 void CConsole::show(const board::CBoard& board) const {
     for (int i = 1; i <= 32; ++i) {
         if ((i - 1) % 4 == 0) {
-            std::cout << std::endl;
+            std::cout << std::endl << std::endl;
         }
         const int row = (i - 1) / 4;
         if (row % 2 == 0)
-            std::cout << OTHER << format(board.square(i));
+            std::cout << VOID << format(i, board);
         else
-            std::cout << format(board.square(i)) << OTHER;
+            std::cout << format(i, board) << VOID;
     }
-    std::cout << std::endl;
+    std::cout << std::endl << std::endl;
 }
 
 std::pair<int, int> CConsole::askForMove() const {
