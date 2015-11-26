@@ -69,6 +69,8 @@ CPPFLAGS = 	$(CFLAGS) \
 			-Wno-long-long \
 			-std=c++1y \
 
+LIBFLAGS += \
+
 .cpp.o:
 	$(ECHO) "[C++   ] $< "
 	$(SILENT)$(CXX) -c $(CPPFLAGS) $(LCPPFLAGS) $< -o $@
@@ -110,7 +112,7 @@ ifneq ($(EXE),)
 $(EXE): $(OBJS) $(OTHER_OBJS) $(LIBDIR) $(MAIN_CPP) $(OTHERLIBDIR)
 	$(ECHO) "[EXE   ] $@ "
 	$(SILENT)$(RM) $@
-	$(SILENT)$(CXX) $(EXEFLAGS) -o $@ $(OBJS) $(OTHER_OBJS) $(INCLIBDIR) $(OTHERINCLIBDIR) $(OTHER_EXE_PARMS) $(LIBS)
+	$(SILENT)$(CXX) $(EXEFLAGS) -o $@ $(OBJS) $(OTHER_OBJS) $(INCLIBDIR) $(OTHERINCLIBDIR) $(OTHER_EXE_PARMS) $(LIBS) $(LIBFLAGS)
 ifneq ($(MOVE_TO_BINDIR),)
 	$(SILENT)$(RM) $(DESTAPPDIR)/$(EXE)
 	$(SILENT)$(MV) $@ $(DESTAPPDIR)
