@@ -20,8 +20,6 @@ TSTBIN = $(TSTDIR)/bin
 MCKDIR = $(CHECKERS_ROOT)/mck
 MCKBIN = $(MCKDIR)/bin
 
-CXXTEST_ROOT=$(CHECKERS_ROOT)/cxxtest
-
 INCDIR =	\
 			-I ./ \
 			-I $(SRCDIR) \
