@@ -8,7 +8,7 @@ you have to have boost installed and variable BOOST_ROOT pointing to its root
 
 export BOOST_ROOT=~/Boost
 
-The design of this application allows ease substitution of players and UI.
+The design of this application allows easy substitution of players and UI.
 
 The main logic of the game is in game::CController
 
