@@ -62,7 +62,6 @@ CFLAGS += 	-DRELEASE \
 			$(INCDIR) \
 
 CPPFLAGS = 	$(CFLAGS) \
-			-fno-enforce-eh-specs \
 			-pedantic-errors \
 			-Wno-long-long \
 			-std=c++1y \
